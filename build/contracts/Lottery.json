@@ -1,0 +1,697 @@
+{
+  "contract_name": "Lottery",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getBalance",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "holders",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "lotteryDuration",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "lotteryEnded",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "ticketHolders",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "contractBalance",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "prevWinners",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "totalEthWon",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "ticketsIssued",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "buyTickets",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": true,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "lotteryStart",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "resetLottery",
+      "outputs": [
+        {
+          "name": "success",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "winner",
+      "outputs": [
+        {
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_account",
+          "type": "address"
+        }
+      ],
+      "name": "getTicketBalance",
+      "outputs": [
+        {
+          "name": "balance",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [],
+      "name": "generateWinners",
+      "outputs": [
+        {
+          "name": "winningTicket",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "payable": false,
+      "type": "constructor"
+    },
+    {
+      "payable": true,
+      "type": "fallback"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "name": "_from",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_quantity",
+          "type": "uint256"
+        }
+      ],
+      "name": "TicketsBought",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "name": "_to",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "name": "_winnings",
+          "type": "uint256"
+        }
+      ],
+      "name": "AwardWinnings",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [],
+      "name": "ResetLottery",
+      "type": "event"
+    }
+  ],
+  "unlinked_binary": "0x6060604052341561000f57600080fd5b5b600060045542600655620151806007555b5b61072f806100316000396000f300606060405236156100bf5763ffffffff60e060020a60003504166312065fe081146100d15780632a11ced0146100f65780632d97902f14610128578063586abc5a1461014d578063734d13b8146101745780638b7afe2e146101a55780638e2ea3aa146101ca57806395bc20ea146101fc5780639dbb616f14610221578063c819982614610246578063cd8cc84414610262578063d337616e14610287578063dfbf53ae146102ae578063e5da378f146102dd578063fb5274e51461030e575b6100cf5b6100cb610333565b505b565b005b34156100dc57600080fd5b6100e4610407565b60405190815260200160405180910390f35b341561010157600080fd5b61010c600435610416565b604051600160a060020a03909116815260200160405180910390f35b341561013357600080fd5b6100e4610448565b60405190815260200160405180910390f35b341561015857600080fd5b61016061044e565b604051901515815260200160405180910390f35b341561017f57600080fd5b6100e4600160a060020a0360043516610457565b60405190815260200160405180910390f35b34156101b057600080fd5b6100e4610469565b60405190815260200160405180910390f35b34156101d557600080fd5b61010c60043561046f565b604051600160a060020a03909116815260200160405180910390f35b341561020757600080fd5b6100e46104a1565b60405190815260200160405180910390f35b341561022c57600080fd5b6100e46104a7565b60405190815260200160405180910390f35b610160610333565b604051901515815260200160405180910390f35b341561026d57600080fd5b6100e46104ad565b60405190815260200160405180910390f35b341561029257600080fd5b6101606104b3565b604051901515815260200160405180910390f35b34156102b957600080fd5b61010c610511565b604051600160a060020a03909116815260200160405180910390f35b34156102e857600080fd5b6100e4600160a060020a0360043516610520565b60405190815260200160405180910390f35b341561031957600080fd5b6100e461053f565b60405190815260200160405180910390f35b60075460065460009101421061034857600080fd5b600160a060020a033316600090815260208190526040902060643402908190556004805490910190556001805480820161038283826106b8565b916000526020600020900160005b8154600160a060020a033381166101009390930a83810291021990911617909155600580543401905560008181526020819052604090819020549192507fb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a091905190815260200160405180910390a25060015b5b90565b600160a060020a033016315b90565b600180548290811061042457fe5b906000526020600020900160005b915054906101000a9004600160a060020a031681565b60075481565b60085460ff1681565b60006020819052908152604090205481565b60055481565b600280548290811061042457fe5b906000526020600020900160005b915054906101000a9004600160a060020a031681565b60095481565b60045481565b60065481565b6007546006546000910142116104c857600080fd5b6008805460ff1916905542600655620151806007557f893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a360405160405180910390a15060015b5b90565b600354600160a060020a031681565b600160a060020a0381166000908152602081905260409020545b919050565b600080600754600654014211151561055657600080fd5b60045460001943014081151561056857fe5b06600101905060018181548110151561057d57fe5b906000526020600020900160005b905460038054600160a060020a031916600160a060020a036101009490940a9092049290921617905560028054600181016105c683826106b8565b916000526020600020900160005b600380548354600160a060020a036101009490940a848102199091169184160217909255905461060592501661060f565b508091505b5b5090565b60075460065460009101421061062457600080fd5b81600160a060020a03166108fc6005549081150290604051600060405180830381858888f19350505050151561065957600080fd5b7fbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df82600554604051600160a060020a03909216825260208201526040908101905180910390a160006005556106ac6104b3565b50600190505b5b919050565b8154818355818115116106dc576000838152602090206106dc9181019083016106e2565b5b505050565b61040391905b8082111561060a57600081556001016106e8565b5090565b905600a165627a7a723058202b486069de80740581bb2ec2102b13c101e8b50b0fefa3bb034878ec84c1e7050029",
+  "networks": {
+    "1502504314911": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xbfa2d1c10a2fa53c9020f113da9167f88515464c",
+      "updated_at": 1502504512424
+    },
+    "1502606754755": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xbcc29f463b0ff77d0d42a807828a00813b563902",
+      "updated_at": 1502606763372
+    },
+    "1502607610105": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xbdf98c5896d5d35cf3898300c5171683f55ef2ae",
+      "updated_at": 1502607618109
+    },
+    "1502608071153": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x28badd580b907f952a3d65fea9ee0f3266db3c75",
+      "updated_at": 1502608099423
+    },
+    "1502608282735": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x899836daca2a8fc5ad45af59a2eb0e6b2cb2661e",
+      "updated_at": 1502608344726
+    },
+    "1502923749139": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xa9e64e6dacb6caa01999cf298eebaefad8be0499",
+      "updated_at": 1502923777474
+    },
+    "1503182021141": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x5e8db6a1a2126a2571d0a1c552a6e6ff1bf02142",
+      "updated_at": 1503182073143
+    },
+    "1503442129002": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0xd8c9edc8d853712278ef8cc693bb09668095443e",
+      "updated_at": 1503442160558
+    },
+    "1503543385338": {
+      "events": {
+        "0xb24ee662b0a257d0321d324e737d2507fbe45df8af8d0da951f630f3754eb6a0": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": true,
+              "name": "_from",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_quantity",
+              "type": "uint256"
+            }
+          ],
+          "name": "TicketsBought",
+          "type": "event"
+        },
+        "0xbcf3be2d085a0c7c417736f3d8ac9677742eaafc8bea4dd1925f3e06220558df": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_to",
+              "type": "address"
+            },
+            {
+              "indexed": false,
+              "name": "_winnings",
+              "type": "uint256"
+            }
+          ],
+          "name": "AwardWinnings",
+          "type": "event"
+        },
+        "0x893ef2883e1d002809b0ecad6cae93cb02eb514120b5f0b472f986d0d5f216a3": {
+          "anonymous": false,
+          "inputs": [],
+          "name": "ResetLottery",
+          "type": "event"
+        }
+      },
+      "links": {},
+      "address": "0x683779b0124e5196f92919cf5e28a232c2e0ec4d",
+      "updated_at": 1503543450619
+    }
+  },
+  "schema_version": "0.0.5",
+  "updated_at": 1505793902251
+}
